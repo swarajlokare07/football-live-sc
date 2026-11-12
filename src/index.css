@@ -1,111 +1,359 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+@import "tailwindcss";
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* =================================
+   BASE STYLES
+================================= */
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-width: 320px;
+    margin: 0;
+    font-family: Inter, ui-sans-serif, system-ui,
+      -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #0a0a0a;
+    color: #ffffff;
+    overflow-x: hidden;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  img,
+  svg {
+    max-width: 100%;
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+/* =================================
+   CUSTOM UTILITIES
+================================= */
+
+@layer utilities {
+  .display-heading {
+    font-family: Impact, Haettenschweiler,
+      "Arial Black", "Franklin Gothic Heavy", sans-serif;
+    font-weight: 900;
+    letter-spacing: 0;
   }
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
+  /* Footer wordmark */
+
+  .footer-wordmark {
+    font-family: Impact, Haettenschweiler,
+      "Arial Narrow Bold", "Franklin Gothic Heavy",
+      "Arial Black", sans-serif;
+
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    font-stretch: condensed;
+
+    background: linear-gradient(
+      180deg,
+      #fd0000 0%,
+      #c00a0a 20%,
+      #570b0b 60%,
+      rgba(0, 0, 0, 0.4) 85%,
+      rgba(10, 10, 10, 0) 100%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+
+    text-shadow: none;
+
+    filter: drop-shadow(
+      0 4px 12px rgba(220, 38, 38, 0.15)
+    );
+  }
+
+  /* Glass card utility */
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-card-light {
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Glowing live indicator */
+
+  @keyframes glow-pulse {
+    0%, 100% {
+      box-shadow: 0 0 4px 1px rgba(239, 68, 68, 0.5);
+      opacity: 1;
+    }
+
+    50% {
+      box-shadow: 0 0 12px 4px rgba(239, 68, 68, 0.8);
+      opacity: 0.7;
+    }
+  }
+
+  .live-dot {
+    animation: glow-pulse 1.5s ease-in-out infinite;
+  }
+
+  /* Gradient text */
+
+  .gradient-text {
+    background: linear-gradient(
+      135deg,
+      #ff4444 0%,
+      #ff8888 50%,
+      #ffcccc 100%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Hide scrollbar */
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
 
-body {
-  margin: 0;
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
+@layer components {
+  .footbuzz-app {
+    min-height: 100vh;
+    background:
+      radial-gradient(ellipse at 50% -20%, rgba(127, 29, 29, 0.28), transparent 55%),
+      #0a0a0a;
   }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
+
+  .fb-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding: 1.25rem clamp(1rem, 5vw, 2rem);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
-}
-p {
-  margin: 0;
-}
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
+  .fb-header h1 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+  }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+  .fb-header nav {
+    display: flex;
+    gap: clamp(0.75rem, 4vw, 2rem);
+  }
+
+  .fb-header a {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+
+  .fb-header a:hover,
+  .fb-header a:focus-visible {
+    color: #fff;
+  }
+
+  .fb-section {
+    max-width: 76rem;
+    margin-inline: auto;
+    padding: clamp(2.5rem, 7vw, 5rem) clamp(1rem, 5vw, 2rem);
+    scroll-margin-top: 1rem;
+  }
+
+  .fb-section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .fb-section-heading h2 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 900;
+    letter-spacing: -0.035em;
+  }
+
+  .fb-section-heading > span,
+  .fb-eyebrow {
+    color: #f87171;
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .fb-eyebrow {
+    margin: 0 0 0.5rem;
+  }
+
+  .fb-section > p:not(.fb-eyebrow) {
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  .fb-match-grid,
+  .fb-highlight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+    gap: 1rem;
+  }
+
+  .fb-match-card,
+  .fb-highlight-card {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.045);
+  }
+
+  .fb-match-card {
+    padding: 1.25rem;
+  }
+
+  .fb-match-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.75rem;
+  }
+
+  .fb-live-label,
+  .fb-status-label {
+    flex-shrink: 0;
+    font-size: 0.65rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .fb-live-label {
+    color: #f87171;
+  }
+
+  .fb-status-label {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .fb-match-teams {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .fb-team {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .fb-team-away {
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  .fb-team img,
+  .fb-team-placeholder {
+    width: 2rem;
+    height: 2rem;
+    flex: 0 0 2rem;
+    object-fit: contain;
+  }
+
+  .fb-team-placeholder {
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.7rem;
+    font-weight: 800;
+  }
+
+  .fb-team strong {
+    overflow: hidden;
+    color: #fff;
+    font-size: 0.875rem;
+    text-overflow: ellipsis;
+  }
+
+  .fb-score {
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .fb-highlight-card a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .fb-highlight-card a:focus-visible {
+    outline: 2px solid #f87171;
+    outline-offset: -2px;
+  }
+
+  .fb-highlight-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .fb-highlight-card h3 {
+    margin: 1rem 1rem 0.5rem;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.4;
+  }
+
+  .fb-highlight-card p {
+    margin: 0 1rem 1rem;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.75rem;
+  }
+
+  .fb-error {
+    border-left: 3px solid #f87171;
+    padding: 0.75rem 1rem;
+    background: rgba(127, 29, 29, 0.2);
+    color: #fecaca;
+  }
 }

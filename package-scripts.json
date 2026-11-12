@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "dev": "concurrently -k \"npm:server\" \"npm:dev:client\"",
+    "server": "node server/index.js",
+    "dev:client": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}
